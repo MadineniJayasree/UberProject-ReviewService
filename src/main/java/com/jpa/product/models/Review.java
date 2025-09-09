@@ -2,11 +2,20 @@ package com.jpa.product.models;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.*;
+@Getter
+@Setter
+@Builder
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="BookingReview")
 public class Review {
@@ -25,6 +34,11 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     Date updatedAt;
+
+    @Override
+    public String toString(){
+        return "Review: "+this.content+" "+this.rating+" "+this.createdAt;
+    }
 
 }
 
